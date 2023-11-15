@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./sql
+    container_name: db_c
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "test"
+      MYSQL_DATABASE: "test"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "test"
+
+  api:
+    build: ./api
+    container_name: api_c
+    restart: unless-stopped
+    ports:
+      - '80:5000'
+    depends_on:
+      - db
